@@ -6,10 +6,10 @@ namespace Lecture1
     {
         private static void Main(string[] args)
         {
-            var homework = new HomeWork();
-            var result = homework.InvokePriceCalculatiion();
+            //var homework = new HomeWork();
+            //var result = homework.InvokePriceCalculatiion();
 
-            Console.WriteLine(result);
+            //Console.WriteLine(result);
             Console.ReadLine();
         }
     }
