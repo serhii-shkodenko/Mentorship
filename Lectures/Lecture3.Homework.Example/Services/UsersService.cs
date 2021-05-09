@@ -1,6 +1,8 @@
 ﻿using Lecture3.Homework.Example.Contracts;
 using Lecture3.Homework.Example.Models;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Lecture3.Homework.Example.Services
 {
@@ -17,5 +19,15 @@ namespace Lecture3.Homework.Example.Services
         {
             throw new NotImplementedException();
         }
+
+        public IEnumerable<User> GetAdultUsers()
+        {
+            return _storeContext.Users.Where(x => x.UserAgeType == UserAgeType.Adult);
+        }
+
+
+
     }
+
+
 }
