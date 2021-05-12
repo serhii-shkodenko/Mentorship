@@ -15,6 +15,9 @@ namespace Lecture7
             // Get raw http response.
             public string GetRawResponseFromServer()
             {
+                // Builder to store the response representation chunks.
+                var builder = new StringBuilder();
+
                 try
                 {
                     using var client = new TcpClient(HostAddress, 80)
@@ -41,9 +44,6 @@ namespace Lecture7
                     // Create buffer to store the response bytes.
                     var buffer = new byte[16384];
 
-                    // Builder to store the response representation chunks.
-                    var builder = new StringBuilder();
-
                     // Read the server response into a memory.
                     using var memoryStream = new MemoryStream();
 
@@ -54,18 +54,17 @@ namespace Lecture7
                     }
 
                     builder.Append(Encoding.UTF8.GetString(memoryStream.ToArray(), 0, (int)memoryStream.Length));
-                    var rawResponse = builder.ToString();
-
-                    Console.WriteLine("Received: {0}", rawResponse);
-
-                    return rawResponse;
                 }
                 catch (SocketException e)
                 {
                     Console.WriteLine("SocketException: {0}", e);
                 }
 
-                return string.Empty;
+                var rawResponse = builder.ToString();
+
+                Console.WriteLine("Received: {0}", rawResponse);
+
+                return rawResponse;
             }
         }
     }
