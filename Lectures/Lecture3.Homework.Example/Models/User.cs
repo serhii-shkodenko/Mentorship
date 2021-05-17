@@ -20,6 +20,11 @@ namespace Lecture3.Homework.Example.Models
 
             throw new System.NotImplementedException();
         }
+
+        public override string ToString()
+        {
+            return $"Name {LastName}";
+        }
     }
 
     public class Basket : IAuditable, IDisposable
