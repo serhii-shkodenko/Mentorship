@@ -6,7 +6,7 @@ namespace Lecture8
     {
         private static void Main(string[] args)
         {
-            //RunJsonSerialization();
+            RunJsonSerialization();
 
             Console.WriteLine("The work is done!");
             Console.ReadLine();
@@ -36,9 +36,9 @@ namespace Lecture8
         {
             var example = new JsonSerialization();
             var order = example.CollectOrder();
-            example.SerializeOrder(order);
+            example.SerializeAndSaveOrder(order);
 
-            var deserializedObject = example.DeserializeOrder();
+            var deserializedObject = example.DeserializeOrderFromSaved();
             Console.WriteLine(deserializedObject);
         }
     }

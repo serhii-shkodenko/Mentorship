@@ -65,14 +65,12 @@ namespace Lecture8
             };
 
             using var xmlTextReader = XmlReader.Create(Path.Combine(new[] { AppDomain.CurrentDomain.BaseDirectory, OrderCustomFilePathXml }), xmlReaderSettings); // XmlTextReader.Create() vs new XmlTextReader, implementaion of XmlReader
-
             xmlTextReader.ReadToDescendant(nameof(Order));
-            //Console.WriteLine(xmlTextReader.ReadOuterXml());
 
             return (Order)serializer.Deserialize(xmlTextReader);
         }
 
-        public class Product // Entity to serialize.
+        public class Product
         {
             [XmlElement("identifier")]
             public Guid Id { get; set; }
@@ -82,11 +80,6 @@ namespace Lecture8
             public string Name { get; set; }
 
             public string Description { get; set; }
-
-            public XmlSchema GetSchema()
-            {
-                return null;
-            }
         }
 
         public class Category
@@ -114,7 +107,10 @@ namespace Lecture8
             public void ReadXml(XmlReader reader)
             {
                 reader.ReadToFollowing(nameof(Id));
-                Id = Guid.Parse(reader.ReadElementString(nameof(Id)));
+                if (Guid.TryParse(reader.ReadElementString(nameof(Id)), out var id))
+                {
+                    Id = id;
+                }
 
                 if (reader.ReadToFollowing(nameof(Status)))
                 {
@@ -122,7 +118,7 @@ namespace Lecture8
 
                     if (statusString != null)
                     {
-                        Status = (OrderStatus)Enum.Parse(typeof(OrderStatus), statusString);
+                        Status = (OrderStatus)Enum.Parse(typeof(string), statusString);
                     }
                 }
             }

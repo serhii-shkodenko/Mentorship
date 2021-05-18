@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using System.Text.Json;
+using System.Text.Json.Serialization;
 
 namespace Lecture8
 {
@@ -47,7 +48,7 @@ namespace Lecture8
             };
         }
 
-        public void SerializeOrder(Order order)
+        public void SerializeAndSaveOrder(Order order)
         {
             var serialized = JsonSerializer.Serialize(order);
 
@@ -59,7 +60,7 @@ namespace Lecture8
             Console.WriteLine(serialized);
         }
 
-        public Order DeserializeOrder()
+        public Order DeserializeOrderFromSaved()
         {
             using var file = new FileStream(OrderFilePathJson, FileMode.Open);
             using var stream = new StreamReader(file, Encoding.UTF8);
@@ -69,7 +70,7 @@ namespace Lecture8
             return JsonSerializer.Deserialize<Order>(order);
         }
 
-        public class Product // Entity to serialize.
+        public class Product
         {
             public Guid Id { get; set; }
 
@@ -103,6 +104,7 @@ namespace Lecture8
             }
         }
 
+        [JsonConverter(typeof(JsonStringEnumConverter))]
         public enum OrderStatus
         {
             Undefined,

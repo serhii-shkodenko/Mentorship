@@ -64,15 +64,13 @@ namespace Lecture8
             };
 
             using var xmlTextReader = XmlReader.Create(Path.Combine(new[] { AppDomain.CurrentDomain.BaseDirectory, OrderFilePath }), xmlReaderSettings); // XmlTextReader.Create() vs new XmlTextReader, implementaion of XmlReader
-
             xmlTextReader.ReadToDescendant(nameof(Order));
-            //Console.WriteLine(xmlTextReader.ReadOuterXml());
 
             return (Order)serializer.Deserialize(xmlTextReader);
         }
     }
 
-    public class Product // Entity to serialize.
+    public class Product
     {
         [XmlElement("identifier")]
         public Guid Id { get; set; }
