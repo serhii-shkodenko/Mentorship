@@ -9,10 +9,12 @@ namespace Lecture3.Homework.Example.Services
     public class UsersService : IUsersService
     {
         private readonly IStoreContext _storeContext;
+        private readonly ILogger _logger;
 
-        public UsersService(IStoreContext storeContext)
+        public UsersService(IStoreContext storeContext, ILogger logger)
         {
             _storeContext = storeContext ?? throw new ArgumentNullException(nameof(storeContext));
+            _logger = logger ?? throw new ArgumentNullException(nameof(logger));
         }
 
         public bool Create(User user)
@@ -22,12 +24,11 @@ namespace Lecture3.Homework.Example.Services
 
         public IEnumerable<User> GetAdultUsers()
         {
-            return _storeContext.Users.Where(x => x.UserAgeType == UserAgeType.Adult);
+            var result = _storeContext.Users.Where(x => x.UserAgeType == UserAgeType.Adult);
+
+            _logger.Log($"DateOfOperation: {DateTime.UtcNow}, Content: {result}");
+
+            return result;
         }
-
-
-
     }
-
-
 }
