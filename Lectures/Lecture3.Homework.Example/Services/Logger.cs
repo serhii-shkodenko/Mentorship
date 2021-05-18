@@ -12,7 +12,7 @@ namespace Lecture3.Homework.Example.Services
         {
         }
 
-        public Logger(IOptions<LoggerOptions> options) : base("")
+        public Logger(LoggerOptions options) : base("")
         {
             _options = options ?? throw new ArgumentNullException(nameof(options));
         }
