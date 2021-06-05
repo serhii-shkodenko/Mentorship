@@ -20,4 +20,4 @@ jobs:
     - name: Restore dependencies
       run: dotnet restore
     - name: Build
-      run: dotnet build Lectures/Lectures.sln --no-restore
+      run: dotnet build "Lectures/Lectures.sln" --no-restore
