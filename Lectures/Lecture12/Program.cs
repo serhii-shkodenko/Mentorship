@@ -6,7 +6,7 @@ namespace Lecture12
 {
     internal class Program
     {
-        private static async void Main(string[] args)
+        private static async Task Main(string[] args)
         {
             Console.WriteLine("Hello World!");
 
